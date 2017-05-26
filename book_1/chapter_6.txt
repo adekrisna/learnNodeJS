@@ -1,0 +1,93 @@
+第 6 章 在 node.js 中操作文件系统
+- fs
+- path
+
+- 1. 如何读写整个文件内容
+- 2. 如何读取文件中的部分内容
+- 3. 如何在文件中的指定位置处写入内容
+- 4. 如何创建与读取目录
+- 5. 如何查看与修改文件或目录的一些信息
+- 6. 如何对文件执行其他各种类型操作
+- 7. node.js 中流的基本概念
+- 8. node.js 中包括哪些用于读/写流数据的对象，各自有什么事件与方法
+- 9. 如何使用 ReadStream 对象与 WriteStream 对象来快速读/写文章
+- 10. 如何利用该模块中的各种方法进行各种绝对路径、相对路径字符串之间的转换处理
+- 11. 各种可以对路径字符串进行的处理
+
+6.1 同步方法与异步方法
+使用 fs 模块来实现，所有有关文件及目录的创建、写入及删除操作
+
+- 同步方法: 返回结果之前不能继续执行后续代码
+Sync 后缀
+
+- 异步方法: 绑定回调函数
+var fs = require('fs');
+fs.readFile('./index.html', function(err, data) {
+    console.log(data);
+})
+
+
+6.2 对文件执行读写操作
+
+6.2.1 文件的完整读写
+
+完整读取一个文件:
+fs.readFile(filename, [options], callback);
+- filename (必填)
+- callback (必填)
+- options: {
+    flag: flagOptions,
+    encoding: utf8 ascii base64
+ }
+
+flagOptions:
+- r (默认) 读取文件，如果文件不存在则抛出异常
+- r+ 读取并写入文件，如果文件不存在则抛出异常
+- rs 以同步方式读取文件，并通知操作系统忽略本地文件系统缓存，如果文件不存在则抛出异常
+- w 写入文件，如果文件不存在则创建该文件，如果该文件已存在则清空文件内容
+- wx 作用与 w 类似，但是以排他方式写入文件
+- w+ 读取并写入文件，如果文件不存在则创建该文件，如果该文件已存在则清空文件内容
+- wx+ 作用与 w+ 类似，但是以排他方式打开文件
+- a 追加写入文件，如果文件不存在则创建该文件
+- ax 作用与 a 类似，但是以排他方式写入文件
+- a+ 读取并追加写入文件，如果文件不存在则创建该文件
+- ax+ 作用与 a+ 类似，但是以排他方式打开文件
+
+callback = function(err, data) {
+    // data 默认是原始二进制内容
+}
+
+完整写入一个文件:
+fs.writeFile(filename, data, [options], callback)
+- filename (必填)
+- data (必填)
+- callback (必填)
+- options: {
+    flag:
+    mode: 0666,
+    encoding
+}
+
+在将一个字符串或一个缓存区中的数据，追加到一个文件底部时，
+采用 fs 模块的 appendFile appendFileSync
+fs.appendFile(filename, data, [options], callback)
+
+
+6.2.2 从指定位置处开始读写文件
+
+- 打开文件
+fs.open(filename, flags, [mode], function(err, fd) {
+    // err
+    // fd 文件句柄
+})
+
+- 读取文件
+fs.read(fd, buffer, offset, length, position, function(err, bytesRead, buffer) {
+
+})
+- 写入文件
+fs.write(fd, buffer, offset, length, position, function(err, written, buffer) {
+
+})
+
+6.3 创建与读取目录

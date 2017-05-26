@@ -1,0 +1,115 @@
+第 9 章 进程与子进程
+
+- 单线程
+- child_process 模块
+用于实现在 Node.js 应用程序中，
+开启多个子进程，
+并在各子进程中运行各种不同命令
+或执行 Node.js 模块文件、可执行文件的处理
+
+- cluster 模块
+用于实现在 Node.js 应用程序中，
+开启多个子进程，
+在每个子进程中运行一个 Node.js 应用程序副本的处理
+
+- process 对象，以及该对象拥有的各种属性及方法
+- 如何开启子进程
+
+
+9.1 Node.js 中的进程
+每个应用程序都是一个进程类的实例对象
+- 在 Node.js 中，使用 process 对象代表 Node.js 应用程序
+- 全局对象
+
+9.1.1 进程对象的属性
+- execPath
+用来运行应用程序的可执行文件的绝对路径
+- version
+Node.js 的版本号
+- versions
+Node.js 及其各依赖的版本号
+- platform
+当前运行 Node.js 的平台
+- stdin
+一个可用于读入标准输入流的对象
+- stdout
+一个可用于写入标准输出流的对象
+- stderr
+一个可以用于写入标准错误输出流的对象
+- argv
+一个数组，包含了运行 Node.js 应用程序时的所有命令行参数
+- env
+一个对象，操作系统环境信息
+- config
+一个对象，包含了用于编译当前 Node 应用程序的可执行文件的配置选项的 JavaScript 描述
+- pid
+运行当前 Node.js 应用程序的进程 PID
+- title
+运行 Node.js 应用程序的命令行窗口的标题
+- arch
+运行 Node.js 应用程序的处理器架构
+
+9.1.2 进程对象的方法与事件
+
+方法：
+- memoryUsage()
+获取 Node.js 应用程序的进程的内存使用量
+返回
+{
+    rss:
+    heapTotal:
+    heapUsed:
+    external:
+}
+
+- nextTick()
+用于将一个函数推迟到
+代码中所书写的下一个同步方法执行完毕时，
+或异步方法的事件回调函数开始执行的调用
+process.nextTick(cb)
+process.maxTickDepth
+
+- abort()
+向运行 Node.js 应用程序的进程，发出 sigabrt 信号，
+使进程异常终止，
+同时产生一个核心文件
+
+- chdir()
+修改 Node.js 应用程序中使用的当前工作目录
+
+- cwd()
+返回当前目录
+
+- exit([code])
+退出运行 Node.js 应用程序的进程
+
+- getgid()
+返回运行 Node.js 应用程序的进程的组 ID
+
+- setgid(id)
+设置运行 Node.js 应用程序的进程的组 ID
+
+- getuid()
+返回运行 Node.js 应用程序的进程的用户 ID
+
+- setuid(id)
+设置运行 Node.js 应用程序的进程的用户 ID
+
+- getgroups()
+- setgroups(groups)
+- initgroups()
+- kill()
+- umask()
+- upptime()
+- hrtime()
+
+事件：
+- exit
+- uncaughtException
+- 各种信号事件
+
+
+9.2 创建多进程应用程序
+
+9.2.1 使用 spawn 方法开启子进程
+child_process.spawn(command, [args], [options])

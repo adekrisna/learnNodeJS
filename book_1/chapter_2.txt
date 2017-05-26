@@ -1,0 +1,65 @@
+第 2 章 Node.js 中的交互式运行环境 —— REPL
+
+- Read - Eval - Print - Loop
+开发者可以在该运行环境中输入任何 JavaScript 表达式，
+当用户按下回车键后，REPL 运行环境中将显示该表达式的运行结果。
+
+- 如何使用 REPL 运行环境
+- 如何在 REPL 运行环境中，测试各种 JavaScript 表达式
+- 如何自定义并启动 REPL 运行环境
+- Nodes.js 框架中为 REPL 运行环境提供了哪些命令，以及这些命令的作用
+
+2.1 PEPL 运行环境概述
+
+进入 REPL 运行环境
+- 输入 node, 按下回车
+- 命令提示符 >
+
+2.2 在 REPL 运行环境中操作变量
+
+- REPL 环境内部使用 eval 函数来评估表达式的执行结果
+- 如果变量所引用对象的某个属性值为一个函数，输入变量名并输入回车键后， REPL 运行环境将把该属性值显示 [function]
+
+2.3 在 REPL 运行环境中使用下划线字符
+
+- 在 REPL 运行环境中，可以通过下划线字符（_）的使用，来访问最近使用的表达式。
+- 但是输入下划线并不意味中可以修改变量的值
+- 下划线语句后要加分好（;）
+_+=2;
+Expression assignment to _ now disabled.
+
+- 可以通过下划线字符的使用，来访问最近一次表达式执行结果的属性或对其执行方法
+
+
+2.4 在 REPL 运行环境中直接运行函数
+
+- REPL 环境中输入函数，环境会用英文省略符（...）表示表达式未书写完成
+
+
+2.5 在 REPL 运行环境中定义并启动服务器
+
+- 在 REPL 运行环境中，可以通过输入表达式的方法来定义并启动服务器。
+
+
+2.6 REPL 运行环境中的上下文对象
+
+var repl = require('repl');
+var con = repl.start().content;
+con.msg = '123';
+con.testFunction(msg) { console.log(msg) };
+
+
+2.7 REPL 运行环境中的基础命令
+
+- 以一个点开始 （.）
+- .break
+- 两次 Ctrl + C
+- .clear
+- .exit
+- 两次 Ctrl + D
+- .help
+- .save filename
+- .load filename
+
+
+2.8 小结
