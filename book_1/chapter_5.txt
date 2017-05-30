@@ -1,0 +1,109 @@
+第 5 章 使用 Buffer 类处理二进制数据
+
+- 处理二进制数据
+- 创建一个专门存放二进制数据的缓存区
+
+- 在 Node.js 中，如何创建一个 Buffer 对象
+- 在 Node.js 中，如何计算字符串的长度以及缓存区的长度
+- 在 Node.js 中，如何实现 Buffer 对象与字符串对象之间的相互转换
+- 在 Node.js 中，如何实现 Buffer 对象与数值对象之间的相互转换
+- 在 Node.js 中，如何实现 Buffer 对象与 JSON 对象之间的相互转换
+- 在 Node.js 中，如何将一个 Buffer 对象中保存的二进制数据，复制到另一个 Buffer 对象中
+- 在 Node.js 中，Buffer 类的所有类方法，以及如何实现这些类方法
+
+
+5.1 创建 Buffer 对象
+
+三种形式的构造函数:
+
+第一种：
+var buf = new Buffer(size);
+- size 缓存区大小，以字节为单位
+
+初始化缓存区中的所有内容
+buf.fill(value, [offset], [end]);
+
+被创建的 Buffer 对象拥有一个 length 属性，属性值为缓存区大小
+
+第二种：
+var buf = new Buffer(array);
+
+
+第三种：
+var buf = new Buffer(str, [encoding]);
+
+编码格式：
+ascii
+utf8
+utf16le
+ucs2
+
+如果使用字符串参数来创建 Buffer 对象并初始化缓存区，
+编码格式不同，缓存区中的数据也会不同
+
+5.2 字符串长度与缓存区长度
+- 不同
+字符串采用字符作为单文
+缓存区采用字节作为单位
+
+字符串对象一旦创建后不可被修改，
+只能重新拼接，重新创建
+
+Buffer 对象是可以被修改的
+
+Buffer 对象只有一个用于取出指定位置处数据的 slice 方法，
+该方法并不是复制缓存区的数据，
+而是与该数据共享内存区域
+
+
+5.3 Buffer 对象与字符串对象之间相互转换
+
+5.3.1 toString
+- toString([encoding], [start], [end])
+encoding 默认是 utf8
+
+5.3.2 write
+- buf.write(string, [offset], [length], [encoding])
+
+5.3.3 StringDecoder 对象
+var StringDecoder = require('string_decoder').StringDecoder;
+var decoder = new StringDecoder([encoding]);
+decoder.write(buf);
+
+Buffer.concat([str1], [str2]).toString()
+- 性能低下
+
+5.4 Buffer 对象与数值对象之间的相互转换
+- 将 Buffer 对象中的二进制数据读取为 JavaScript 中 Number 类型的数据
+- 将 Number 类型的数据转换为精确类型后向 Buffer 中写入
+
+read
+write
+
+
+5.5 Buffer 对象与 JSON 对象之间的相互转换
+- JSON.stringify()
+- JSON.parse()
+
+5.6 复制缓存数据
+buf.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
+- a.copy(b);
+将 a 复制到 b
+
+
+5.7 Buffer 类的类方法
+
+5.7.1 Buffer.isBuffer(obj)
+判断对象是否是一个 Buffer 对象
+
+5.7.2 Buffer.byteLength(string, [encoding])
+计算一个指定字符串的字节数
+
+5.7.3 Buffer.concat(list, [totalLength])
+将几个 Buffer 对象结合创建为一个新的 Buffer 对象
+
+5.7.4 Buffer.isEncoding(encoding)
+检车一个字符串是否为一个有效的编码格式字符串
+
+
+5.8 小结

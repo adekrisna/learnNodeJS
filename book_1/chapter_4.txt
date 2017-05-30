@@ -1,0 +1,123 @@
+第 4 章 模块与 npm 包管理工具
+
+在 node.js 中, 以模块为单位划分所有功能, 并提供了一个完整的模块加载机制.
+npm 包管理工具
+
+- Node.js 的核心模块与文件模块
+- 如何从模块外部访问模块内的变量、对象以及方法
+- 组织与管理应用程序中需要使用的模块
+- 模块对象具有哪些属性，以及属性值分别代表什么含义
+- node.js 中包的基本概念、包的结构, 如何自定义一个包，以及使用 npm 下载第三方包
+
+4.1 核心模块与文件模块
+
+每一个模块都是一个 JavaScript 脚本文件.
+- 减少代码量
+- 提高开发效率
+- 代码简洁、易读
+
+加载核心模块:
+var http = require('http');
+如果模块名书写错误，则 require 函数将抛出异常.
+
+在 node.js 中，可以自己编写或从网上下载以下几种模块文件:
+- 后缀名为 .js 的 JavaScript 脚本文件
+- 后缀名为 .json 的 JSON 文本文件
+- 后缀名为 .node 的经过编译后的二进制模块文件
+
+加载这些模块文件时，需要指定该文件的完整路径及文件名
+- 相对路径
+require('./scripts/foo.js');
+- 绝对路径
+require('/scripts/foo.js');
+
+如果该文件不存在，则 require 函数也将抛出一个异常.
+
+4.2 从模块外部访问模块内成员
+
+4.2.1 使用 exports 对象
+在模块内导出变量、函数、对象
+exports.msg = 'msg';
+exports.funcname = funcname;
+
+4.2.2 将模块定义为类
+module.exports
+
+4.2.3 为模块类定义类变量或类函数
+当把模块定义为类时, 可以为该类定义类变量和类函数
+相当于其他语言中的静态变量和静态函数，
+node.js 中称为类变量和类函数
+
+
+4.3 组织和管理模块
+
+
+4.3.1 从 node_modules 目录中加载模块
+如果在 require 函数中，只指定文件名，但不指定路径，
+则 node.js 将该文件视为 node_modules 目录下的一个文件
+
+如 /home/ry/projects/app.js 有以下代码：
+require('foo.js');
+
+则 node.js 为 foo.js 模块加载路径依次为：
+/home/ry/projects/node_modules/foo.js
+/home/ry/node_modules/foo.js
+/home/node_modules/foo.js
+/node_modules/foo.js
+
+使用这种方式加载模块，比指定路径加载模块的方式更加灵活，
+因为你可以移动模块文件的位置，而不需修改代码中指定的路径
+
+
+4.3.2 使用目录来管理模块
+在 node.js 中,
+可以将目录名指定为模块名,
+以便通过目录来管理模块,
+只需要为该目录指定一个入口点。
+
+require('foo');
+
+- 默认加载 node_modules/foo 目录下 index.js
+- 默认加载 node_modules/foo 目录下 package.json 文件中 main 字段指定的文件
+
+
+4.3.3 从全局目录中加载模块
+- windows
+设置 NODE_PATH 环境变量
+
+- UNIX
+$HOME/.node_modules
+$HOME/.node_libraries
+$HOME 代表用户主目录
+
+
+4.4 模块对象的属性
+在模块文件内部，可以访问当前模块如下一些属性
+- module.id
+- module.filename
+- module.loaded
+- module.parent
+- module.children
+
+
+4.5 包与 npm 包管理工具
+
+4.5.1 node.js 中的包
+
+4.5.2 npm 包管理工具
+Node Package Manager
+
+- node.js 官方包网站
+https://npmjs.org
+- node.js 官方包仓库
+https://registry.npmjs.org
+
+npm search packageName
+npm view packageName
+npm install packageName
+npm root -g
+npm config set prefix filePath
+npm list
+npm update
+
+4.6 小结
