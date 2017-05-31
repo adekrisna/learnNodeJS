@@ -1,0 +1,34 @@
+第 12 章 Node.js 中的其他模块
+
+- dns
+- punycode
+- os
+- readline
+- util
+- vm
+- repl
+
+12.1 使用 dns 模块解析域名
+- resolve 一个域名 -> 一组 DNS 记录
+- reverse 一个IP地址 -> 一组域名
+- lookup  一个域名 -> 一个 IP 地址
+
+各种便捷方法均为 resolve 方法的一种便捷形式
+
+12.1.1 使用 resolve 方法将域名解析为 DNS 记录
+dns.resolve(domain, [rrtype], callback)
+* domain 域名，包括子域名
+* rrtype 指定需要获取的记录类型
+_ A
+_ AAAA
+_ CNAME
+_ MX
+_ TXT
+_ SRV
+_ NS
+* callback
+function (err, addresses) {}
+
+12.1.2 使用 lookup 方法查询 IP 地址
+
+dns.lookup(domain, [family], callback)

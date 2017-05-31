@@ -1,0 +1,99 @@
+第 13 章 数据库访问
+Node.js 应该具有，通过数据访问来存取数据的能力
+- MongoDB - NoSQL数据库中存取数据
+* 安装 MongoDB 数据库
+* 安装 MongoDB 本地驱动包
+* 连接 MongoDB 数据库并访问操作
+* Mongoose 类库定制数据架构
+- MySQL 关系型数据库
+* 安装 MySQL 数据库客户端开发包
+* 连接 MySQL 数据库
+* 调用 MySQL 数据库存储过程
+* 以数据流的方式读取从 MySQL 数据库查询到的数据
+* 为多个数据库连接，创建并维护一个可缓存数据连接的连接池
+
+13.1 在 MongoDB 数据库中读取数据
+
+13.1.1 MongoDB 概述
+- 数据存取效率高
+- BSON
+JSON 对象的二进制形式
+- 非阻塞型数据库
+- 面向文档
+
+
+13.1.2 安装 MongoDB 数据库
+www.mongodb.org
+www.mongodb.com
+
+mongod 运行数据库服务器
+mongo 运行与数据库服务器相连接的客户端
+
+mongod -dbpath <path>
+
+13.1.3 安装 MongoDB 本地驱动包
+npm install --save mongodb
+
+13.1.4 连接 MongoDB 数据库
+- 创建一个代表 MongoDB 数据库所在服务器的 Server 对象，
+用于指定需要连接的 MongoDB 数据库所在服务器
+
+var server = new mongo.Server(host, port, [options]);
+
+- 创建一个代表 MongoDB 数据库的 Db 对象
+var db = new mongo.Db(databaseName, server, [options])
+
+- open 方法执行数据库连接操作
+db.open(callback)
+function callback(err, db){}
+
+- close 关闭数据库
+db.close([forceClose], [callback])
+* forceClose 布尔值
+true 强制关闭，不可再 open 打开
+false 关闭，可再 open 打开
+
+* function callback(err){}
+
+db.on('close', callback)
+
+13.1.5 在 MongoDB 数据库中插入数据
+使用数据库对象的 collection 方法访问一个集合
+db.collection(collectionName, [options], [callback])
+
+collection.insert(docs, [options], [callback])
+
+
+13.1.6 在 MongoDB 数据库中查询数据
+collection.find(selector, [options]).toArray(callback)
+* selector 对象，查询条件
+* 返回代表游标的 Cursor 对象
+
+- 查询条件：
+
+字段值等于
+{ <字段名>: <字段值> }
+
+指定需要查询的字段，并限定字段值范围
+{ <字段名>: {$in: [<字段值1>, <字段值2>, ...]} }
+
+使用 或 关系指定多个字段值的查询条件
+{ $or: [{}, {}]}
+
+同时使用 且 与 或 指定多个字段值的查询条件
+{<字段名>: <字段值>, $or: [{}, {}]}
+
+...
+
+13.1.7 在 MongoDB 数据库中更新与删除数据
+
+collection.update(selector, document, [options], [callback])
+
+collection.findAndModify(selector, sort, document, [options], [callback])
+
+collection.remove([selector], [options], [callback])
+
+collection.findAndRemove(selector, sort, [options], [callback])
+
+
+13.1.8 使用 Mongoose 类库
