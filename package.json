@@ -8,7 +8,9 @@
   },
   "scripts": {
     "insert": "node code/book_1/chapter_13/insert.js",
-    "find": "node code/book_1/chapter_13/find.js"
+    "find": "node code/book_1/chapter_13/find.js",
+    "mongoose": "node code/book_1/chapter_13/mongoose.js",
+    "mysql": "node code/book_1/chapter_13/mysql.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "mongoose": "^4.10.4"
   },
   "dependencies": {
-    "mongodb": "^2.2.27"
+    "mongodb": "^2.2.27",
+    "mysql": "^2.13.0"
   }
 }

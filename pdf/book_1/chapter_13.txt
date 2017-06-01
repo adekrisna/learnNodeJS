@@ -1,10 +1,12 @@
 第 13 章 数据库访问
 Node.js 应该具有，通过数据访问来存取数据的能力
+
 - MongoDB - NoSQL数据库中存取数据
 * 安装 MongoDB 数据库
 * 安装 MongoDB 本地驱动包
 * 连接 MongoDB 数据库并访问操作
 * Mongoose 类库定制数据架构
+
 - MySQL 关系型数据库
 * 安装 MySQL 数据库客户端开发包
 * 连接 MySQL 数据库
@@ -97,3 +99,39 @@ collection.findAndRemove(selector, sort, [options], [callback])
 
 
 13.1.8 使用 Mongoose 类库
+
+13.2 在 MySQL 数据库中存储数据
+
+13.2.1 建立连接与关闭连接
+
+创建一个表示与 MySQL 数据库服务器之间的连接的 Connection 对象
+var connection = mysql.createConnection(options);
+- options 对象 or 一个 URL 字符串
+* host
+* port
+* socketPath
+* user
+* password
+* database
+* charset  UTF8_GENERAL_CI  utf8_general_ci
+* timezone  local
+* stringifyObjects false
+* insecureAuth false
+* typeCast
+* queryFormat
+* supportBigNumbers
+* bigNumbersStrings
+* debug
+* multipleStatements
+
+- 返回被创建的 Connection 对象
+
+
+使用 connect 方法建立与 MySQL 数据库服务器之间的连接
+- connection.connect(function(err) {})
+
+使用 end 方法或 destroy 方法关闭与 MySQL 数据库服务器之间的连接
+- connection.end(function(err){})
+- connection.destroy()
+
+
