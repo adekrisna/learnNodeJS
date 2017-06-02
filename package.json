@@ -10,6 +10,7 @@
     "insert": "node code/book_1/chapter_13/insert.js",
     "find": "node code/book_1/chapter_13/find.js",
     "mongoose": "node code/book_1/chapter_13/mongoose.js",
+    "query": "node code/book_1/chapter_13/query.js",
     "mysql": "node code/book_1/chapter_13/mysql.js"
   },
   "repository": {

@@ -134,4 +134,23 @@ var connection = mysql.createConnection(options);
 - connection.end(function(err){})
 - connection.destroy()
 
+13.2.2 执行数据的基本处理
+
+connection.query(sql, [parameters], [callback])
+
+对用户输入数据进行 excape 编码处理
+connection.escape(data)
+
+编码规则：
+- 数值        不变
+- 布尔值       true 或 false 字符串
+- Date 对象       YYYY-mm-dd HH:ii:ss 格式字符串
+- Buffer 对象     十六进制格式字符串
+- 字符串 escape 编码处理
+- 数组            将数组转换为列表 ['a', 'b'] -> 'a', 'b'
+- 多维数组          将多维数组转换为分组列表
+- 其他对象          key='val'
+- undefined or null     NULL
+- NAN / Infinity    不变，抛出错误
+
 
