@@ -12,12 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.post('/send', function (req, res) {
-    console.log(req.body)
     res.send('success')
 });
 
 app.get('/', function (req, res) {
-    console.log(req.query)
     res.send('success');
 })
 
