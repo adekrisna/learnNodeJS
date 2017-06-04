@@ -1,0 +1,86 @@
+第 14 章 使用 Express 构建 Web 应用程序
+Node.js 只是提供了大量低端的功能
+
+让开发者更快、更方便地开发出一个完整的应用程序。
+Node.js 官方包网站 http://npmjs.org
+
+Express
+
+－ 安装 Express
+－ 使用 Express 开发框架，在服务端处理客户端提交的 GET、POST、PUT、DELETE请求
+－ 在 Express 中使用路由处理
+－ 中间件和自定义中间件
+－ Express 内置的各种中间件
+－ 各种模版引擎
+
+14.1 Express 概述
+14.1.1 安装 Express
+Express 是一个可以在 Node.js 中使用的 MVC 框架
+方便、快捷开发出一个完整的 Web 应用程序
+
+npm install -g express
+
+14.1.2 使用 Express 开发一个简单的示例应用程序
+var express = require('express');
+var app = express();
+app.listen(1337, '127.0.0.1');
+
+app.get(path, callback)
+- http.IncomingMessage
+- http.ServerResponse
+
+Note: 应用程序实例对象调用 listen 方法时，
+一个 HTTP 服务器被隐式创建
+
+可以使用 Node.js 的 http 模块或 https 模块中的 createServer 方法显示创建一个 HTTP 服务器或 HTTPS 服务器。
+http.createServer(app).listen(1337);
+https.createServer(options, app).listen(1337);
+
+send 方法将根据服务端响应结果，自动计算响应头信息。
+也不需要使用 end 方法显式结束响应内容的发送。
+
+14.2 设置路由
+指定参数：冒号＋参数名
+
+在路由中，可以使用正则表达式。
+在路由中，可以使用通配符
+通过正则表达式的使用来限定参数值的类型
+
+可以使用多个 get 方法，且这些 get 方法使用相同的路由
+调用 next 方法，调用下一个使用相同路由的 get 方法
+
+
+14.3 使用各种提交数据或请求数据的方法
+
+14.3.1 使用 post 方法接受客户端提交的 POST 请求
+14.3.2 使用 put 方法接受客户端提交的 PUT 请求
+14.3.3 使用 delete 方法接受客户端提交的 DELETE 请求
+14.3.4 使用 all 方法接受客户端提交的各种请求
+
+14.4 中间件
+14.4.1 中间件概述
+通过中间件的使用，来调用各种第三方类库
+一个中间件就是一个用于处理客户端请求的函数
+
+定义一个中间件：
+function middleware(req, res, next) {next()}
+
+使用一个中间件：
+app.user([path], function)
+
+14.4.2 Express 框架中内置的中间件
+// npm i -S basic-auth
+npm i -S node-basicauth
+
+npm i -S body-parser
+npm i -S compress
+npm i -S cookie-parser
+npm i -S csrf
+npm i -S directory
+npm i -S errorHandler
+npm i -S favicon limit logger
+// npm i -S methodOverride
+// npm i -S responseTime
+// npm i -S static
+npm i -S router
+npm i -S session

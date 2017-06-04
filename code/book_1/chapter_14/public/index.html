@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>使用 post 方法向服务器提交数据</title>
+</head>
+<body>
+    <form id="form1">
+        姓：<input type="text" id="txtFirstName" name="firstname" value="111">
+        名：<input type="text" id="txtUserName" name="username" value="333">
+        <input type="button" name="button" value="提交" onClick="submitData();">
+    </form>
+    <div id="result">
+
+    </div>
+    <script>
+        function $(id) {
+            return document.getElementById(id);
+        }
+        function submitData() {
+            var obj = {
+                firstname: $('txtFirstName').value,
+                username: $('txtUserName').value
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', '/send', true);
+            // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.onload = function (e) {
+                if (this.status == 200) {
+                    $('result').innerHTML = this.response;
+                }
+            }
+            // xhr.send(JSON.stringify(obj))
+            xhr.send(obj)
+        }
+    </script>
+</body>
+</html>
